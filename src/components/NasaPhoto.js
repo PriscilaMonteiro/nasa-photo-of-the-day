@@ -6,14 +6,20 @@ import axios from 'axios';
 const apikey = process.env.REACT_APP_NASA_KEY;
 
 export default function NasaPhoto(){
-    const [photoData, setPhotoData] = useState(null);
+    const [photoData, setPhotoData] = useState([]);
+    const [error, setError] = useState(null);
     
 
     useEffect(() => {
-        axios.get(`https://api.nasa.gov/planetary/apod?api_key=${apikey}`)
+        axios.get(`https://api.nasa.gov/planetary/apod?api_ky=${apikey}`)
             .then(res => {
                 setPhotoData(res.data);
             })
+            .catch(err => {
+              console.error(err);
+              setError("Sorry, try again soon!");
+            })
+
             
     }, []);
 
@@ -25,6 +31,7 @@ export default function NasaPhoto(){
         <>
        <NavBar />
         <div className="nasa-photo">
+            {error && <h1>{error}</h1>}
             {photoData.media_type === "image" ? (
             <img src={photoData.url} alt={photoData.title} className="photo"/>
             ) : (
