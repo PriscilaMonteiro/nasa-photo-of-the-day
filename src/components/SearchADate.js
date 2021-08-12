@@ -7,10 +7,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 function SearchADate () {
 
   const[selectedDate, setSelectedDate] = useState(null)
+
+
   return (
     <div>
+      Select a Date:
       <DatePicker 
         selected={selectedDate} 
+        placeholder="Please select a date between June 20th, 1995 and Present-Day"
         onChange={date => setSelectedDate(date)}
         dateFormat='yyyy-MM-dd'
         maxDate={new Date()}

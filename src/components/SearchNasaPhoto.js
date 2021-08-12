@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import SearchADate from "./SearchADate";
