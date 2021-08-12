@@ -1,12 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import NavBar from "./NavBar";
+import SearchADate from "./SearchADate";
 import axios from 'axios';
 
 const apikey = process.env.REACT_APP_NASA_KEY;
 
 export default function NasaPhoto(){
-    const [photoData, setPhotoData] = useState(null);
+    const [photoData, setPhotoData] = useState([]);
+    const [error, setError] = useState(null);
     
 
     useEffect(() => {
@@ -14,6 +16,11 @@ export default function NasaPhoto(){
             .then(res => {
                 setPhotoData(res.data);
             })
+            .catch(err => {
+              console.error(err);
+              setError("Sorry, try again soon!");
+            })
+
             
     }, []);
 
@@ -24,7 +31,9 @@ export default function NasaPhoto(){
     return (
         <>
        <NavBar />
+       <SearchADate />
         <div className="nasa-photo">
+            {error && <h1>{error}</h1>}
             {photoData.media_type === "image" ? (
             <img src={photoData.url} alt={photoData.title} className="photo"/>
             ) : (
